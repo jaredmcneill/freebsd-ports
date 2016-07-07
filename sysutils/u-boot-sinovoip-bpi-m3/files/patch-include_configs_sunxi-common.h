@@ -1,6 +1,6 @@
---- include/configs/sunxi-common.h.orig	2016-04-12 02:22:25 UTC
-+++ include/configs/sunxi-common.h
-@@ -527,4 +527,75 @@ extern int soft_i2c_gpio_scl;
+--- include/configs/sunxi-common.h.orig	2016-05-16 11:40:32.000000000 -0300
++++ include/configs/sunxi-common.h	2016-07-07 17:00:25.673890000 -0300
+@@ -513,4 +513,75 @@
  #define CONFIG_EXTRA_ENV_SETTINGS
  #endif
  

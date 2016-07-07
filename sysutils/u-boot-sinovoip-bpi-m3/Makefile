@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	u-boot
-DISTVERSION=	2016.05-rc1
+DISTVERSION=	2016.05
 PORTVERSION=	${DISTVERSION:S/-/./}
 CATEGORIES=	sysutils
 MASTER_SITES=	ftp://ftp.denx.de/pub/u-boot/
