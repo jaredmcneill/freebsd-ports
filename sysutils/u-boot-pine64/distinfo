@@ -1,5 +1,9 @@
-TIMESTAMP = 1466481189
-SHA256 (u-boot-2016.05.tar.bz2) = 87d02275615aaf0cd007b54cbe9fbadceef2bee7c79e6c323ea1ae8956dcb171
-SIZE (u-boot-2016.05.tar.bz2) = 11325053
-SHA256 (firmware-pine64-20160329-6.1.src.rpm) = ab3eb03902f19778a8bc62a933a24ed67f4aeacff861272cc60896a2fd8a1f43
-SIZE (firmware-pine64-20160329-6.1.src.rpm) = 6977912
+TIMESTAMP = 1473504738
+SHA256 (u-boot-2016.09-rc2.tar.bz2) = 70bc71d06390ebddf8785e5635cbde20295792778c3c76fdb752e86166652c9d
+SIZE (u-boot-2016.09-rc2.tar.bz2) = 11732996
+SHA256 (f11ecb4af7f9f337a2bae0adc6c340236823bfbf.zip) = 7a2032a8c7b461b47ea0c55963dcf1b50dabd145338deedb6557af9c7c084720
+SIZE (f11ecb4af7f9f337a2bae0adc6c340236823bfbf.zip) = 1064187
+SHA256 (boot0img.c) = e8bf85c051be1095bbd7fa6c6ecc92d7a7a9111627078ceebfad173d38ca922d
+SIZE (boot0img.c) = 17515
+SHA256 (boot0.bin) = 398fddd1bec2469e59bc48a5b8ad10a43b2df5aefae03e91cfd34510470a3c65
+SIZE (boot0.bin) = 32768

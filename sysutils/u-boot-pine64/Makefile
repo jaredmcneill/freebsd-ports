@@ -1,14 +1,20 @@
 # $FreeBSD$
 
 PORTNAME=	u-boot
-PORTVERSION=	2016.05
-PORTREVISION=	1
+PORTVERSION=	2016.09.rc2
+DISTVERSION=	2016.09-rc2
 CATEGORIES=	sysutils
 MASTER_SITES=	ftp://ftp.denx.de/pub/u-boot/:uboot \
-		http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/Pine64/standard/src/:firmware
+		https://github.com/apritzel/arm-trusted-firmware/archive/:firmware \
+		https://raw.githubusercontent.com/apritzel/pine64/0558929fa4964fb20725d641655f840071aa945e/tools/:imagetool \
+		http://csgraf.de/agraf/pine64/:boot0
 PKGNAMESUFFIX=	-pine64
-DISTFILES=	u-boot-${PORTVERSION}.tar.bz2:uboot \
-		firmware-pine64-20160329-6.1.src.rpm:firmware
+ATF_FWREV=	f11ecb4af7f9f337a2bae0adc6c340236823bfbf
+DISTFILES=	u-boot-${DISTVERSION}.tar.bz2:uboot \
+		${ATF_FWREV}.zip:firmware \
+		boot0img.c:imagetool \
+		boot0.bin:boot0
+EXTRACT_ONLY=	u-boot-${DISTVERSION}.tar.bz2
 
 MAINTAINER=	brd@FreeBSD.org
 COMMENT=	Cross-build U-Boot loader for Pine64
@@ -37,19 +43,19 @@ IGNORE=		requires FreeBSD 10 or later
 .endif
 
 post-extract:
-	(cd ${WRKSRC}; ${EXTRACT_CMD} xvf ${DISTDIR}/firmware-pine64-20160329-6.1.src.rpm)
+	${CP} ${DISTDIR}/boot0.bin ${WRKSRC}
+	${CP} ${DISTDIR}/boot0img.c ${WRKSRC}
 	${RM} -fr ${WRKSRC}/arm-trusted-firmware
-	(cd ${WRKSRC}; ${EXTRACT_CMD} xvf pine64atf.tar.xz)
+	(cd ${WRKSRC}; ${UNZIP_CMD} ${DISTDIR}/${ATF_FWREV}.zip)
+	(cd ${WRKSRC}; ${MV} arm-trusted-firmware-${ATF_FWREV} arm-trusted-firmware)
 
 do-configure:
 	(cd ${WRKSRC}; ${MAKE_CMD} pine64_plus_defconfig)
 
 post-build:
 	(cd ${WRKSRC}/arm-trusted-firmware; ${GMAKE} ${MAKE_ARGS} DEBUG=1)
-	(cd ${WRKSRC}; ${CC} -o pine64_image pine64_image.c)
-	(cd ${WRKSRC}; ${CAT} arm-trusted-firmware/build/sun50iw1p1/debug/bl31.bin u-boot-dtb.bin > bl31uboot.bin)
-	(cd ${WRKSRC}; ./pine64_image scp.bin bl31uboot.bin u-boot.img)
-	(cd ${WRKSRC}; ${CAT} boot0.bin u-boot.img > pine64.img)
+	(cd ${WRKSRC}; ${CC} -o boot0img boot0img.c)
+	(cd ${WRKSRC}; ./boot0img -B boot0.bin -s arm-trusted-firmware/build/sun50iw1p1/debug/bl31.bin -a 0x44008 -d trampoline64:0x44000 -u u-boot-dtb.bin -e -o pine64.img)
 
 do-install:
 	${MKDIR} ${STAGEDIR}/${PREFIX}/${U_BOOT_DIR}
