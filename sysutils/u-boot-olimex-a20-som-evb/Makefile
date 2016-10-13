@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	u-boot
-PORTVERSION=	${UBOOT_VERSION}
+PORTVERSION?=	${UBOOT_VERSION}
 CATEGORIES=	sysutils
 MASTER_SITES=	ftp://ftp.denx.de/pub/u-boot/
 PKGNAMESUFFIX?=	-${MODEL}
@@ -19,7 +19,7 @@ MODEL?=		olimex-a20-som-evb
 
 NO_ARCH=	yes
 
-WRKSRC=		${WRKDIR}/u-boot-${DISTVERSION}
+WRKSRC?=	${WRKDIR}/u-boot-${DISTVERSION}
 USES=		gmake tar:bzip2
 SSP_UNSAFE=	yes # cross-LD does not support -fstack-protector
 
