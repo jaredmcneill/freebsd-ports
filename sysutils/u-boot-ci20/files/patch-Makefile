@@ -1,0 +1,11 @@
+--- Makefile.orig	2016-11-30 02:32:57 UTC
++++ Makefile
+@@ -414,7 +414,7 @@ ALL-y += $(obj)u-boot-nodtb-tegra.bin
+ endif
+ endif
+ 
+-all:		$(ALL-y) $(SUBDIR_EXAMPLES)
++all:		$(ALL-y)
+ 
+ $(obj)u-boot.dtb:	checkdtc $(obj)u-boot
+ 		$(MAKE) -C dts binary
